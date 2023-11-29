@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "axios": "^1.6.2",
+    "nodemon": "^3.0.1",
     "workerpool": "^8.0.0"
   },
   "name": "workerpool",
@@ -8,7 +10,7 @@
   "main": "threadPoolManager.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node threadPoolManager.js"
+    "start": "nodemon threadPoolManager.js"
   },
   "author": "mae6e",
   "license": "ISC"

@@ -1,23 +1,19 @@
 
 const workerpool = require('workerpool');
-const cors = require('os').cpus().length;
-
-//? offload function
-const search = require('./search');
-const test = require('./utils/index');
-
-workerpool.worker({
-    getData: test.getData
-});
+// const cors = require('os').cpus().length;
 
 //? initial worker pool
-const pool = workerpool.pool({
-    maxQueueSize: 100,
-    workerType: 'auto',
-    maxWorkers: cors
-});
+const pool = workerpool.pool('./search.js');
 
+//? offload function
+//const { search } = require('./search');
 
+//? initial worker pool
+// const pool = workerpool.pool({
+//     maxQueueSize: 100,
+//     workerType: 'auto',
+//     maxWorkers: cors
+// });
 
 
 //? the status of worker pool
@@ -51,18 +47,21 @@ for (const network of networks) {
     }
 }
 
-console.log(taskQueue);
+//console.log(taskQueue);
 
 setTimeout(() => {
     for (const task of taskQueue) {
-        pool.exec(search, [task.index, task.index + task.offset])
+        pool.exec('search', [task.index, task.index + task.offset])
             .then(function (result) {
                 console.log(result);
-                // console.log(pool.stats());
+                //console.log(pool.stats());
             })
             .catch(function (err) {
                 console.error(err);
             });
+        // .then(function () {
+        //     pool.terminate();
+        // });
     }
-}, 10000);
+}, 1000);
 

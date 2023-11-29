@@ -1,12 +1,9 @@
 
-// const axios = require('axios');
+const axios = require('axios');
 
-class test {
-    static getData = () => {
-        // const response = await axios.get('https://api.binance.com/api/v3/ticker/price');
-        // return response;
-        return true;
-    }
-
+getData = (ms) => {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
 }
-module.exports = test;
+module.exports = getData;

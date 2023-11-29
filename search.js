@@ -1,10 +1,10 @@
 
+const workerpool = require('workerpool');
+const getData = require('./utils');
 
-const test = require('./utils/index');
-
-search = (from, to) => {
+async function search(from, to) {
     try {
-        // test.getData();
+        const response = await getData(10);
         for (let i = from; i < to; i++) {
             const result = i * to;
         }
@@ -15,4 +15,9 @@ search = (from, to) => {
     }
 }
 
-module.exports = search;
+//? create a worker and register public functions
+workerpool.worker({
+    getData: getData,
+    search: search
+});
+
